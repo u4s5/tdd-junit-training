@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Range {
 
-    public Range(double start, double end) {
+    public Range(long start, long end) {
 
     }
 
