@@ -9,7 +9,7 @@ public class Calculator {
     private static final String rightBracket = ")";
 
     static {
-        MAIN_MATH_OPERATIONS = new HashMap<String, Integer>();
+        MAIN_MATH_OPERATIONS = new HashMap<>();
         MAIN_MATH_OPERATIONS.put("*", 1);
         MAIN_MATH_OPERATIONS.put("/", 1);
         MAIN_MATH_OPERATIONS.put("+", 2);
@@ -20,7 +20,7 @@ public class Calculator {
 
         String rpn = convertToPolishNotation(expression);
         StringTokenizer tokenizer = new StringTokenizer(rpn, " ");
-        Stack<Double> stack = new Stack<Double>();
+        Stack<Double> stack = new Stack<>();
         while (tokenizer.hasMoreTokens()) {
             String token = tokenizer.nextToken();
 
@@ -32,6 +32,8 @@ public class Calculator {
                 if (token.equals("*")) {
                     stack.push(operand1 * operand2);
                 } else if (token.equals("/")) {
+                    if (operand2 == 0.0)
+                        throw new IllegalArgumentException("Division by 0");
                     stack.push(operand1 / operand2);
                 } else if (token.equals("+")) {
                     stack.push(operand1 + operand2);
@@ -51,12 +53,12 @@ public class Calculator {
         if (expression == null || expression.length() == 0)
             throw new IllegalStateException("Expression isn't specified.");
 
-        List<String> out = new ArrayList<String>();
-        Stack<String> stack = new Stack<String>();
+        List<String> out = new ArrayList<>();
+        Stack<String> stack = new Stack<>();
 
         expression = expression.replace(" ", "");
 
-        Set<String> operationSymbols = new HashSet<String>(MAIN_MATH_OPERATIONS.keySet());
+        Set<String> operationSymbols = new HashSet<>(MAIN_MATH_OPERATIONS.keySet());
         operationSymbols.add(leftBracket);
         operationSymbols.add(rightBracket);
 
@@ -109,7 +111,7 @@ public class Calculator {
         while (!stack.empty()) {
             out.add(stack.pop());
         }
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         if (!out.isEmpty())
             result.append(out.remove(0));
         while (!out.isEmpty())
